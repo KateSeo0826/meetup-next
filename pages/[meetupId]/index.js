@@ -32,8 +32,9 @@ export async function getStaticPaths() {
     const meetups = await meetupsCollection.find({}, { _id: 1 }).toArray()
 
     client.close()
+
     return {
-        fallback: 'blocking',
+        fallback: true,
         paths: meetups.map(meetup => ({
             params: { meetupId: meetup._id.toString() }
         }))
@@ -48,11 +49,12 @@ export async function getStaticProps(context) {
     const db = client.db()
     const meetupsCollection = db.collection('meetups')
 
-    const selectedMeetup = await meetupsCollection.findOne({ _id: ObjectId(meetupId) })
+    const selectedMeetup = await meetupsCollection.findOne({
+        _id: ObjectId(meetupId)
+    })
 
     client.close()
 
-    console.log(meetupId)
     return {
         props: {
             meetupData: {
@@ -61,9 +63,9 @@ export async function getStaticProps(context) {
                 address: selectedMeetup.address,
                 image: selectedMeetup.image,
                 description: selectedMeetup.description,
-            }
-        }
-    }
+            },
+        },
+    };
 }
 
 export default MeetupDetails
