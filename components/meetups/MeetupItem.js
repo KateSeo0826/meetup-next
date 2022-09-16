@@ -20,7 +20,6 @@ function MeetupItem(props) {
           <address>{props.address}</address>
         </div>
         <div className={classes.actions}>
-
           <button onClick={showDetailHandler}>Show Details</button>
         </div>
       </Card>
