@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb'
 async function handler(req, res) {
     if (req.method === 'POST') {
         const data = req.body
-        const client = await new MongoClient.connect(
+        const client = await MongoClient.connect(
             process.env.MONGODB_URI, {
             useUnifiedTopology: true,
             useNewUrlParser: true
