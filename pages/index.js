@@ -20,9 +20,10 @@ function HomePage(props) {
 
 export async function getStaticProps() {
     //fetch data from an API
-    const client = await MongoClient.connect(
-        'mongodb+srv://kateseo:sds0611@cluster0.k52jyd6.mongodb.net/?retryWrites=true&w=majority'
-    )
+    const client = await MongoClient.connect(process.env.MONGODB_URI, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true
+    })
     const db = client.db()
     const meetupsCollection = db.collection('meetups')
     const meetups = await meetupsCollection.find().toArray()

@@ -4,9 +4,11 @@ import { MongoClient } from 'mongodb'
 async function handler(req, res) {
     if (req.method === 'POST') {
         const data = req.body
-        const client = await MongoClient.connect(
-            'mongodb+srv://kateseo:sds0611@cluster0.k52jyd6.mongodb.net/?retryWrites=true&w=majority'
-        )
+        const client = await new MongoClient.connect(
+            process.env.MONGO_DB_CONNECTION_STRING, {
+            useUnifiedTopology: true,
+            useNewUrlParser: true
+        })
         const db = client.db()
         const meetupsCollection = db.collection('meetups')
 
