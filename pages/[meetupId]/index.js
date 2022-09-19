@@ -23,10 +23,7 @@ function MeetupDetails(props) {
 }
 
 export const getStaticPaths = async () => {
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
-    })
+    const client = await MongoClient.connect(process.env.MONGODB_URI)
     const db = client.db()
     const meetupsCollection = db.collection('meetups')
 
@@ -42,10 +39,7 @@ export const getStaticPaths = async () => {
 }
 export const getStaticProps = async (context) => {
     const meetupId = context.params.meetupId
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true
-    })
+    const client = await MongoClient.connect(process.env.MONGODB_URI)
     const db = client.db()
     const meetupsCollection = db.collection('meetups')
 
