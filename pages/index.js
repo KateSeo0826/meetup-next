@@ -18,17 +18,6 @@ function HomePage(props) {
     )
 }
 
-// export async function getServerSideProps(context) {
-//     const req = context.req
-//     const res = context.res
-
-//     //fetch data from an API
-//     return {
-//         props: {
-//             meetups: DUMMY_MEETUPS
-//         }
-//     }
-// }
 export async function getStaticProps() {
     //fetch data from an API
     const client = await MongoClient.connect(
@@ -36,9 +25,7 @@ export async function getStaticProps() {
     )
     const db = client.db()
     const meetupsCollection = db.collection('meetups')
-    console.log(meetupsCollection)
     const meetups = await meetupsCollection.find().toArray()
-    console.log(meetups)
     client.close()
     return {
         props: {
